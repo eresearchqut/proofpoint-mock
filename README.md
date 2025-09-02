@@ -46,3 +46,30 @@ curl --location 'http://localhost:3000/send' \
   ]
 }'
 ```
+
+## Usage (docker compose)
+1. Add the following to `docker-compose`:
+   1. Select a smtp service (e.g. mailhog) and configure it
+   2. Configure the proofpoint-mock service
+    ```
+        smtp:
+          image: mailhog/mailhog:v1.0.1
+          container_name: smtp_server_dev
+          restart: unless-stopped
+          ports:
+            - "1025:1025"   # SMTP
+            - "8025:8025"   # Web UI
+    
+        proofpoint:
+          container_name: proofpoint_dev
+          image: ghcr.io/eresearchqut/proofpoint-mock:publish_docker
+          environment:
+            - PORT=3000
+            - SMTP_HOST=smtp
+            - SMTP_PORT=1025
+          depends_on:
+            - smtp
+          ports:
+            - "7002:3000"
+    ```
+2. Check emails: http://localhost:8025
