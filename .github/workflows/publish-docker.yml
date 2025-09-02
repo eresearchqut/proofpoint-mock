@@ -47,7 +47,7 @@ jobs:
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push docker image
-        id: push-api
+        id: push
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
         with:
           context: .
