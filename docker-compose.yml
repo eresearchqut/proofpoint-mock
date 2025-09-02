@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+#  api:
+#    build: .
+#    container_name: proofpoint-mock-api
+#    environment:
+#      - PORT=3000
+#      - SMTP_HOST=smtp
+#      - SMTP_PORT=1025
+#    ports:
+#      - "3000:3000"
+#    depends_on:
+#      - smtp
+
+  smtp:
+    image: mailhog/mailhog:v1.0.1
+    container_name: fake-smtp
+    restart: unless-stopped
+    ports:
+      - "1025:1025"   # SMTP
+      - "8025:8025"   # Web UI
+    # Usage: Visit http://localhost:8025 to view captured emails.
