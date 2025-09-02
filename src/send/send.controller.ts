@@ -1,6 +1,6 @@
-import {Body, Controller, HttpCode, Post} from '@nestjs/common';
-import {ProofpointSendRequest} from '../dto';
-import {SendService} from './send.service';
+import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { ProofpointSendRequest } from '../dto';
+import { SendService } from './send.service';
 
 @Controller()
 export class SendController {
@@ -9,6 +9,6 @@ export class SendController {
   @Post('send')
   @HttpCode(200)
   async send(@Body() body: ProofpointSendRequest) {
-    return  this.sendService.send(body);
+    return this.sendService.send(body);
   }
 }
