@@ -1,10 +1,13 @@
 name: publish-docker
 on:
-  workflow_run:
-    workflows:
-      - build
-    types:
-      - completed
+  push:
+#  workflow_run:
+#    workflows:
+#      - build
+#    types:
+#      - completed
+#    branches:
+#      publish_docker
 #    branches:
 #      - dev
 #      - qa
