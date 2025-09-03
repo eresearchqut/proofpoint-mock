@@ -4,7 +4,7 @@ import { ProofpointSendRequest, Recipient } from '../dto';
 import { randomUUID } from 'crypto';
 
 @Injectable()
-export class SendService {
+export class ApiService {
   private transporter: nodemailer.Transporter;
 
   constructor() {
