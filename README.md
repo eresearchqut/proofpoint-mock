@@ -1,5 +1,13 @@
 # Proofpoint Mock API
 
+## Rationale
+We have an application that previously sent emails using SendGrid. 
+For local development and testing, we relied on Docker images that mock SendGrid (e.g. ghashange/sendgrid-mock) to capture and inspect emails without sending them externally.
+
+A new requirement mandated migration from SendGrid to Proofpoint Secure Email Relay. 
+At the time of writing, no equivalent mocking solution exists for Proofpoint that provides the same local email sending & receiving functionality as sendgrid-mock. 
+This gap created the need for the code in this repository.
+
 ## Components
 * custom api: mocks Proofpoint's `send` api endpoint and sends an email with smtp
 * Nodemailer: smtp client
