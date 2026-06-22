@@ -1,6 +1,7 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Query } from '@nestjs/common';
 import { ProofpointSendRequest } from '../dto';
 import { ApiService } from './api.service';
+import { parseMockStatus, throwMockError } from './mock-error';
 
 const TOKEN_EXPIRY = 900;
 
@@ -32,7 +33,15 @@ export class ApiController {
 
   @Post('send')
   @HttpCode(200)
-  async send(@Body() body: ProofpointSendRequest) {
+  async send(
+    @Body() body: ProofpointSendRequest,
+    @Query('mockStatus') mockStatus?: string,
+  ) {
+    const status = parseMockStatus(mockStatus);
+    if (status !== undefined) {
+      throwMockError(status);
+    }
+
     return this.sendService.send(body);
   }
 }

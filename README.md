@@ -55,6 +55,20 @@ curl --location 'http://localhost:3000/send' \
 }'
 ```
 
+## Simulating error responses
+The mock normally returns `200 OK`. To simulate one of the error responses documented for Proofpoint's [`send` endpoint](https://api-docs.ser.proofpoint.com/docs/email-submission/operations/send), add a `mockStatus` query parameter with the desired HTTP error code:
+```
+curl --location 'http://localhost:3000/send?mockStatus=429' \
+--header 'Content-Type: application/json' \
+--data-raw '{ "subject": "test" }'
+```
+Response:
+```
+HTTP 429
+{ "reason": "too many requests", "request_id": "..." }
+```
+Any integer between `400` and `599` is accepted. The documented codes (`400`, `401`, `403`, `413`, `429`, `500`) return a Proofpoint-style `reason`; other codes return a generic `error` reason. A `mockStatus` outside that range (e.g. `200`) returns `400` with an explanatory `reason`. Omit the parameter for normal behaviour.
+
 ## Usage (docker compose)
 1. Add the following to `docker-compose`:
    1. Select a smtp service (e.g. mailhog) and configure it
